@@ -1,0 +1,41 @@
+package test.main;
+
+import java.io.FileReader;
+import java.io.IOException;
+
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
+public class MainClass06 {
+	public static void main(String[] args) {
+		try {
+			//file 에서 문자열을 읽어들일 FileReader 객체 생성
+			FileReader fr=new FileReader("c:/myFolder/gura.txt");
+			//한번에 5글자를 담을 수 있는 char[] 객체 생성
+			char[] buffer=new char[5];
+			//char[] 을 전달해서 읽어오기
+			
+			while(true) {
+				//char[]을 전달해서 읽어들이기
+				// 읽은 문자의 갯수가 리턴된다.
+				// 더이상 읽을 문자가 없으면 -1이 리턴된다.
+
+				// buffer 배열을 초기화 해주지 않고 읽어서 마지막에 읽을때 5글자가 아니면, 뒤에 자리는 전에 데이터가 남아 있어서 잘못된 결과가 나옴. 
+				int readedCount=fr.read(buffer);	// return값 - 읽어 온 글자수, max는 5				
+				if(readedCount==-1) {	// -1 읽을게 없음. 
+					break; 				// 반복문 탈출
+				}		
+				
+				//배열에 있는 모든 내용을 출력하기
+				//for(char tmp:buffer) {		// 마지막 읽을때 가비지 데이터 출력 안하기 위해서
+				for(int i=0; i<readedCount;i++) {
+					char tmp=buffer[i];
+					System.out.print(tmp);
+				}	
+			}
+			//마무리 작업
+			fr.close();
+		} catch ( IOException ie) {
+			ie.printStackTrace();
+		}
+	}
+}
